@@ -1,11 +1,11 @@
 {
-    "name": "programmer-zaman-now/belajar-php-mvc",
-    "description": "Belajar PHP MVC",
+    "name": "programmer-zaman-now/php-login",
+    "description": "PHP LOGIN",
     "type": "project",
     "authors": [
         {
-            "name": "Eko Kurniawan Khannedy",
-            "email": "echo.khannedy@gmail.com"
+            "name": "Laelatul Hodijah",
+            "email": "echo.hodijah@gmail.com"
         }
     ],
     "require": {
