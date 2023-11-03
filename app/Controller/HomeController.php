@@ -9,7 +9,7 @@ class HomeController
     function index()
     {
         View::render('Home/index', [
-            "title" => "PHP Login Management"
+            'title' => "PHP Login Management"
         ]);
     }
 }
