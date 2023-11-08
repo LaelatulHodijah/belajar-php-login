@@ -10,6 +10,17 @@ use ProgrammerZamanNow\Belajar\PHP\MVC\Model\UserRegisterRequest;
 class UserController
 {
     private $userService;
+    private SessionService $sessionService; 
+
+    public function __construct()
+    {
+        $connection = Database::getConnection();
+        $userRepository = new UserRepository($connection);
+        $this->userService = new UserService($userRepository);
+
+        $sessionRepository = new SessionRepository($connection);
+        $this->sessionService = new SessionService($sessionRepository, $userRepository);
+    }
 
     public function register(){
         View::render('User/register', [
@@ -42,23 +53,29 @@ class UserController
         ]);
     }
 
-    public function postLofin()
+    public function postlogin()
     {
         $requset = new UserLoginRequest();
         $requset->id = $_POST['id'];
         $requset->password = $_POST ['password'];
 
       try{
-          $this->userService->login($requset);
-          View::redirect('/');
+         $response = $this->userService->login($request);
+         $this->sessionServices->create($response->user->id);
+        View::redirect('/');
       }catch (ValidationException $exception){
           View::render('user/login',[
               'title' => 'Login user',
+                'error' => $exception->getMessage()
           ]);
 
       }
+    }
 
-
+    public function logout(){
+        $this->sessionService->destroy();
+        View::redirect("/");
     }
 
 }
+
