@@ -19,5 +19,7 @@ Router::add('POST', '/users/login', UserController::class, 'login',[MustNotLogin
 Router::add('POST', '/users/login'. UserController::class, 'postLogin', [MustNotLoginMiddleware::class]);
 Router::add('GET', '/users/logout'. UserController::class, 'logout', [MustLoginMiddleware::class]);
 Router::add('POST', '/users/profile'. postUserController::class, 'updateProfile', [MustLoginMiddleware::class]);
+Router::add('GET', '/users/password'. postUserController::class, 'updatePassword', [MustLoginMiddleware::class]);
+Router::add('POST', '/users/password'. postUserController::class, 'postupdatePassword', [MustLoginMiddleware::class]);
 
 Router::run();
