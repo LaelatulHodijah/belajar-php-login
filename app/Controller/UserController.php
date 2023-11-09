@@ -77,5 +77,45 @@ class UserController
         View::redirect("/");
     }
 
+    public function updateProfile(){
+        $user = $this->sessionService->current();
+
+        View::render('User/profile'[
+            View::render('User/profile'[
+            "title" => "Update user profile",
+            "user" => [
+                "id" => $user->id,
+                "name" => $user->name
+            ]
+        ]);
+    }
+
+    public function postUpdateProfile(){
+        $user = $this->sessionService->current();
+
+        $request = new UserProfileUpdateRequest();
+        $request->id = $user->id;
+        $request->name = $_POST['name'];
+
+        try {
+        $this->userService->UpdateProfile($request);
+        view::redirect('/');
+
+        } catch (ValidationException $exception) {
+            public function updateProfile(){
+                $user = $this->sessionService->current();
+        
+                View::render('User/profile'[
+                    "title" => "Update user profile",
+                    "error" => $exception->getMessage,
+                    "user" => [
+                        "id" => $user->id,
+                        "name" => $_POST['name']
+                    ]
+                ]);
+            
+        }
+    }
+
 }
 

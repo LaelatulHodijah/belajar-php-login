@@ -3,7 +3,6 @@
 namespace ProgrammerZamanNow\Belajar\PHP\MVC\Service;
 
 use mysql_xdevapi\Session;
-use ProgrammerZamanNow\Belajar\PHP\MVC\Domain\Session;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Domain\User;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\SessionRepository;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\UserRepository;

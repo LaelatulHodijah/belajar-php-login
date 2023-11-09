@@ -21,9 +21,12 @@ class SessionServiceTest extends TestCase
        $this->sessionRepository = new SessionRepository(Database::getConnection());
        $this->userRepository = new UserRepository(Database::getConnection());
        $this->sessionService = new SessionService($this->sessionRepository, $this->userRepository);  
+       $this->sessionRepository = new SessionRepository($connection);
 
-       $this->sessionRepository->deleteAll();
-       $this->sessionRepository->deleteAll();
+
+       $this-> sessionRepository->deleteAll();
+       $this-> UserRepository->deleteAll();  
+
 
        $user = new user();
         $user->id="eko";
@@ -77,5 +80,45 @@ class SessionServiceTest extends TestCase
         self::assertEquals($session->userId, $user->id);
     }
 
-     
+    public function testUpdateSuccess()
+    {
+        $user = new User();
+        $user->id = "eko";
+        $user->name = "Eko";
+        $user->password = password_hash("eko". PASSWORD_BCRYPT);
+        $this->userReposirory->save($user);
+
+        $request = new UserProfileUpdateRequest();
+        $request->id = "eko";
+        $request->name = "Budi";
+
+        $this->userService->UpdateProfile($request);
+
+        $result = $this->userRepository->findById($user->id);
+
+        self::assertEquals($request->name, $result->name);
+    }
+
+    public function testUpdateValidationError()
+    {
+        $this->expectException(ValidationException::class);
+        $request = new UserProfileUpdateRequest();
+        $request-> id = "";
+        $request->name = ";
+
+        $this->userService->UpdateProfile($request);
+
+    }
+
+    public function testUpdateNotFound()
+    {
+        $this->expectException(ValidationException::class);
+        $request = new UserProfileUpdateRequest();
+        $request-> id = "eko";
+        $request->name = "Budi";
+
+        $this->userService->UpdateProfile($request);
+
+
+    }
 }
