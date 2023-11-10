@@ -2,14 +2,14 @@
 
 namespace ProgrammerZamanNow\Belajar\PHP\MVC\Middleware;
 
+use ProgrammerZamanNow\Belajar\PHP\MVC\App\View;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Config\Database;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\SessionRepository;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\UserRepository;
-use ProgrammerZamanNow\Belajar\PHP\MVC\Service\SessionRepository;
+use ProgrammerZamanNow\Belajar\PHP\MVC\Service\SessionService;
 
 class MustNotLoginMiddleware implements Middleware
 {
-
     private SessionService $sessionService;
 
     public function __construct()
@@ -17,17 +17,13 @@ class MustNotLoginMiddleware implements Middleware
         $sessionRepository = new SessionRepository(Database::getConnection());
         $userRepository = new UserRepository(Database::getConnection());
         $this->sessionService = new SessionService($sessionRepository, $userRepository);
-
-
     }
 
-    function before(): void 
+    function before(): void
     {
         $user = $this->sessionService->current();
-        if ($user |= null) {
+        if ($user != null) {
             View::redirect('/');
         }
     }
 }
-
-

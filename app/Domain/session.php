@@ -2,10 +2,8 @@
 
 namespace ProgrammerZamanNow\Belajar\PHP\MVC\Domain;
 
-class session
+class Session
 {
     public string $id;
-    public strinng $userId;
-
-
+    public string $userId;
 }

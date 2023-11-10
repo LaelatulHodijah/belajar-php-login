@@ -1,7 +1,6 @@
 <?php
 
-namespace ProgrammerZamanNow\Belajar\PHP\MVC\config;
-
+namespace ProgrammerZamanNow\Belajar\PHP\MVC\Config;
 
 class Database
 {
@@ -18,17 +17,19 @@ class Database
                 $config['database'][$env]['password']
             );
         }
-            return self::$pdo;
+
+        return self::$pdo;
     }
 
     public static function beginTransaction(){
         self::$pdo->beginTransaction();
     }
-    public static function comitTransaction(){
+
+    public static function commitTransaction(){
         self::$pdo->commit();
     }
+
     public static function rollbackTransaction(){
         self::$pdo->rollBack();
     }
-
 }
